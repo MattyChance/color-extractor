@@ -1,0 +1,21 @@
+{
+  "name": "color-extractor-node-pkg",
+  "version": "1.0.0",
+  "description": "color extracting using node modules",
+  "main": "index.js",
+  "dependencies": {
+    "color": "^3.1.2",
+    "color-convert": "^2.0.1",
+    "color-thief": "^2.2.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "extract": "node ./index.js",
+    "test": "npm run test"
+  },
+  "keywords": [
+    "color"
+  ],
+  "author": "mattywang",
+  "license": "ISC"
+}
