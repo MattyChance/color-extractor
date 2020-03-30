@@ -23,5 +23,5 @@ getHexColors('201099F069020_1.png');
 getHexColors('201381F054061_1.png');
 getHexColors('201979F110005_1.png');
 
-console.log('Time used to extract colors: ')
+console.log('Time used to extract colors: ');
 console.timeEnd('color-extracting');
