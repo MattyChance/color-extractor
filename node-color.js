@@ -2,7 +2,7 @@ console.log('Getting colors ... ');
 console.time("color-extracting");
 
 var ColorThief = require('color-thief');
-var Color = require('color');
+// var Color = require('color');
 var convert = require('color-convert');
 
 function getHexColors(imagePath) {
