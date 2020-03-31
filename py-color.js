@@ -15,7 +15,9 @@ const execute = cmd => new Promise((resolve, reject) => {
 
 async function getHexColors (imagePath) {
     try {
-        await execute(`extcolors ${imagePath} -o text`);
+        let path = __dirname + '/assets/' + imagePath;
+        
+        await execute(`extcolors ${path} -o text`);
     } catch(e) {
         console.error(e);
     }
@@ -26,9 +28,9 @@ const run = async () => {
     console.log('Getting colors ... ');
     console.time("color-extracting");
 
-    await getHexColors('/Users/matty.wang/color-extractor-node-pkg/assets/201099F069020_1.png');
-    await getHexColors('/Users/matty.wang/color-extractor-node-pkg/assets/201099F069020_1.png');
-    await getHexColors('/Users/matty.wang/color-extractor-node-pkg/assets/201979F110005_1.png');
+    await getHexColors('201099F069020_1.png');
+    await getHexColors('201381F054061_1.png');
+    await getHexColors('201979F110005_1.png');
 
     console.log('Time used to extract colors: ');
     console.timeEnd('color-extracting');
