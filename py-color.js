@@ -1,36 +1,51 @@
-const execute = cmd => new Promise((resolve, reject) => {
-    const exec = require('child_process').exec
-    exec(cmd, (error, stdout, stderr) => {
-      stdout && console.log(stdout)
-      stderr && !error && console.warn(stderr)
+// do pip install extcolors before running this. Use python version > 3.0
+const fs = require('fs');
 
-      if (error !== null) {
-        console.error(`Error executing shell command ${cmd}`, error)
-        return reject(error)
-      }
+// const execute = require('./helpers/spawnProcess').execute;
+const execute = function(cmd) {
+    new Promise((resolve, reject) => {
+        const exec = require('child_process').exec
+        exec(cmd, (error, stdout, stderr) => {
+        stdout && console.log(stdout)
+        stderr && !error && console.warn(stderr)
 
-      resolve()
+        if (error !== null) {
+          console.error(`Error executing shell command ${cmd}`, error)
+          return reject(error)
+        }
+
+        resolve()
     })
   });
+}
 
-async function getHexColors (imagePath) {
+const IMAGE_FOLDER = './assets';
+
+async function getHexColors (image) {
     try {
-        let path = __dirname + '/assets/' + imagePath;
+        let path = __dirname + '/assets/' + image;
         
         await execute(`extcolors ${path} -o text`);
     } catch(e) {
-        console.error(e);
+        throw e;
     }
 }
 
-
-const run = async () => {
+const run = function() {
     console.log('Getting colors ... ');
     console.time("color-extracting");
 
-    await getHexColors('201099F069020_1.png');
-    await getHexColors('201381F054061_1.png');
-    await getHexColors('201979F110005_1.png');
+    const images = [];
+    fs.readdirSync(IMAGE_FOLDER).map(image => images.push(image));
+
+    return new Promise((res, rej) => {
+        try {
+            images.map(image => getHexColors(image));
+            res();
+        } catch (e) {
+            rej(e);
+        }
+    });
 
     console.log('Time used to extract colors: ');
     console.timeEnd('color-extracting');
